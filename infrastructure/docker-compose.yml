@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  assestment-database:
+    container_name: assestment-database
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5431:5431
+    command: -p 5431
+
+  assestment-backend:
+    image: assestment-backend
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    restart: on-failure
+    command: >
+      bash -c "./wait-for.sh assestment-database:5431 -t 120 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - PIPENV_VERBOSITY=-1
+      - DATABASE_URL=postgres://user:password@database:5431/assestment
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - assestment-database
+    volumes:
+      - ../utils:/app
+      - ../backend/src:/app
+    env_file:
+      - ../backend/src/.env
+
+  assestment-frontend:
+    container_name: assestment-frontend
+    image: float-patient-web
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../utils:/app
+    env_file:
+      - ../frontend/.env
+
+networks:
+    default:
+      name: float-network
