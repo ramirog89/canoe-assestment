@@ -1,14 +1,9 @@
 import os
 
 from pathlib import Path
-from dotenv import dotenv_values, load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Load Environment Variables
-load_dotenv()  # load from environment
-dotenv_values(dotenv_path=os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ob2+_ig5j6239!h14$9eglh_t73sv#lr&au*zrcyeszhw55%hh'
@@ -21,6 +16,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'src.app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -40,7 +37,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'src.urls'
+ROOT_URLCONF = 'src.app.config.urls'
 
 TEMPLATES = [
     {
@@ -58,16 +55,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'src.wsgi.application'
+WSGI_APPLICATION = 'src.app.config.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'assestment',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5431',
     }
 }
 
@@ -117,14 +115,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MODULES
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'src.app.utils.pagination.CustomPagination',
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication'
-    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
-    # 'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 SWAGGER_SETTINGS = {
@@ -136,7 +129,6 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-    # 'DEFAULT_PAGINATOR_INSPECTORS': 'src.app.config.swagger.CustomPaginatorClass'
 }
 
 LOGGING = {
@@ -157,13 +149,6 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': True,
         },
     },
 }

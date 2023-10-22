@@ -30,12 +30,9 @@ services:
     volumes:
       - ../utils:/app
       - ../backend/src:/app
-    env_file:
-      - ../backend/src/.env
 
   assestment-frontend:
-    container_name: assestment-frontend
-    image: float-patient-web
+    image: assestment-frontend
     build:
       context: ../frontend
       dockerfile: Dockerfile
@@ -48,4 +45,4 @@ services:
 
 networks:
     default:
-      name: float-network
+      name: assestment-network
