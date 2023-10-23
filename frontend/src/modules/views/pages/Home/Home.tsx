@@ -21,6 +21,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { useFunds } from '../../../hooks/useFunds';
 
 const rows = [
   {
@@ -47,6 +48,12 @@ const Drawer = styled(MuiDrawer)(() => ({
 }));
 
 const Dashboard = () => {
+  const fundManager = useFunds();
+
+  React.useEffect(() => {
+    fundManager.get
+  }, []);
+
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar>

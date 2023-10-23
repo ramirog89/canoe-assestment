@@ -9,15 +9,23 @@ export const useApi = () => {
     });
   };
 
-  const getManagers = async (): Promise<ManagerModel.IManager[]> => {
-    return request("/manager", {
-      method: "GET",
+  const createFund = async (payload: FundModel.IFundRequest): Promise<FundModel.IFund> => {
+    return request('fund', {
+      method: "POST",
+      body: payload
     });
   };
 
-  const getCompanies = async (): Promise<CompanyModel.ICompany[]> => {
-    return request("/company", {
+  const updateFund = async (id: number, payload: FundModel.IFundRequest): Promise<FundModel.IFund> => {
+    return request(`/fund/${id}`, {
       method: "GET",
+      body: payload
+    });
+  };
+
+  const deleteFund = async (id: number): Promise<void> => {
+    return request(`/fund/${id}`, {
+      method: "DELETE",
     });
   };
 
@@ -60,7 +68,8 @@ export const useApi = () => {
 
   return {
     getFunds,
-    getManagers,
-    getCompanies
+    createFund,
+    updateFund,
+    deleteFund,
   };
 };

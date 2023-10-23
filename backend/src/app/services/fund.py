@@ -3,13 +3,16 @@ from rest_framework.response import Response
 
 from ..repositories.fund import fund_repository
 from ..dtos.fund import CreateUpdateFundDto, FundDto
+from ..utils.pagination import paginate
+
 
 class FundService:
 
-  def get_all(self):
+  def get_all(self, request):
     try:
         funds = fund_repository.all()
-        return FundDto(funds, many=True)
+        response = paginate(funds, request, FundDto)
+        return Response(response)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
@@ -18,7 +21,8 @@ class FundService:
         serializer = CreateUpdateFundDto(data=payload)
         serializer.is_valid(raise_exception=True)
         fund = serializer.save()
-        return Response(fund)
+        response = FundDto(fund).data
+        return Response(response)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
@@ -28,13 +32,15 @@ class FundService:
         response = FundDto(data=payload, instance=fund, partial=True)
         response.is_valid(raise_exception=True)
         response.save()
-        return Response(response.data)
+        response = FundDto(fund).data
+        return Response(response)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
   def delete(self, id):
     try:
-        fund_repository.delete(pk=id)
+        fund_repository.delete(id=id)
+        return Response(status=status.HTTP_204_NO_CONTENT)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 

@@ -1,14 +1,21 @@
 FROM node:alpine
 
 RUN mkdir /app
+
 WORKDIR /app
 
-COPY ./package*.json ./
+RUN pwd
 
-RUN npm install
+RUN ls -la
 
 COPY . .
 
-RUN export NODE_OPTIONS=--openssl-legacy-provider
+RUN ls -la
+
+RUN cat package.json
+
+RUN npm install
+
+RUN ls -la
 
 ENTRYPOINT npm run start

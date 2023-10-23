@@ -62,7 +62,7 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'assestment',
-        'USER': 'user',
+        'USER': 'assestment',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5431',
@@ -115,9 +115,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MODULES
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PARSER_CLASSES': [
+        "rest_framework.parsers.JSONParser",
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+    'DEFAULT_PAGINATION_CLASS': "src.app.utils.pagination.CustomPagination",
+    'PAGE_SIZE': 10,
 }
 
 SWAGGER_SETTINGS = {
