@@ -1,9 +1,9 @@
 from rest_framework import status
 from rest_framework.response import Response
 
-from ..repositories.fund import fund_repository
-from ..dtos.fund import CreateUpdateFundDto, FundDto
-from ..utils.pagination import paginate
+from ...repositories.fund import fund_repository
+from ...dtos.fund import CreateUpdateFundDto, FundDto
+from ...utils.pagination import paginate
 
 
 class FundService:
@@ -22,6 +22,9 @@ class FundService:
         serializer.is_valid(raise_exception=True)
         fund = serializer.save()
         response = FundDto(fund).data
+        
+        # aca se dispara un Evento... 'create_fund'
+
         return Response(response)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
@@ -43,6 +46,9 @@ class FundService:
         return Response(status=status.HTTP_204_NO_CONTENT)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
+
+  def get_duplicate_funds(self):
+      pass
 
 
 fund_service = FundService()

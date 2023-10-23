@@ -11,6 +11,12 @@ services:
       - 5431:5431
     command: -p 5431
 
+  assestment-redis:
+    container_name: assestment-redis
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
   assestment-backend:
     image: assestment-backend
     build:
@@ -28,6 +34,23 @@ services:
       - REDIS_URL=redis://redis:6379/0
     depends_on:
       - assestment-database
+    volumes:
+      - ./utils:/app
+      - ../backend/src:/app
+
+  assestment-celery:
+    container_name: assestment-celery
+    restart: always
+    build:
+      context: ../backend
+    command: > 
+      "./wait-for.sh assestment-backend:8000 -t 120 -- celery -A src.app worker --beat --loglevel=INFO"
+    environment:
+      - DATABASE_URL=postgres://floatuser:floatpassword@float-database:5431/float
+      - REDIS_URL=redis://float-redis:6379/0
+    depends_on:
+      - assestment-redis
+      - assestment-backend
     volumes:
       - ./utils:/app
       - ../backend/src:/app
