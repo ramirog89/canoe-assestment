@@ -30,3 +30,9 @@ export enum StatusType {
   success = "success",
   noaction = "noaction",
 }
+
+export type PaginatedResponse<T> = {
+  total: number;
+  items: T[];
+  statusCode: number;
+};

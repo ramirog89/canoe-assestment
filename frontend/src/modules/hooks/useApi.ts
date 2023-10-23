@@ -1,9 +1,9 @@
 import { ENV } from '../../constants';
-import { FundModel, ManagerModel, CompanyModel } from "../../models";
+import { FundModel, GeneralModel } from "../../models";
 
 export const useApi = () => {
 
-  const getFunds = async (): Promise<FundModel.IFund[]> => {
+  const getFunds = async (): Promise<GeneralModel.PaginatedResponse<FundModel.IFund>> => {
     return request("/fund", {
       method: "GET",
     });

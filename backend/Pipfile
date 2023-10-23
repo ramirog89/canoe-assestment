@@ -9,6 +9,7 @@ djangorestframework = "*"
 psycopg = "*"
 python-dotenv = "*"
 drf-yasg = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

@@ -7,6 +7,7 @@ import { ROUTES, theme } from "../constants";
 import { ContextProvider } from "./state-mgmt/provider";
 import { queryClient } from "./hooks/useQuery";
 
+import ToastList from "./views/common/ToastList";
 import Home from "./views/pages/Home";
 
 const AppRoot = () => {
@@ -21,6 +22,7 @@ const AppRoot = () => {
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </BrowserRouter>
+          <ToastList />
         </ContextProvider>
       </ThemeProvider>
     </QueryClientProvider>

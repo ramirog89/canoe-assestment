@@ -5,10 +5,9 @@ import { FundModel } from '../../models';
 export const useFunds = () => {
   const apiManager = useApi();
 
-  const get = useQuery({
+  const funds = useQuery({
     queryKey: ['funds'],
     queryFn: () => apiManager.getFunds(),
-    staleTime: Infinity,
   });
 
   const create = useMutation({
@@ -23,5 +22,5 @@ export const useFunds = () => {
     mutationFn: (id: number) => apiManager.deleteFund(id)
   })
 
-  return { get, create, update, remove };
+  return { funds, create, update, remove };
 };
