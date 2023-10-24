@@ -1,1 +1,4 @@
-export interface IManager {}
+export interface IManager {
+  id: number;
+  name: string;
+}

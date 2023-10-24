@@ -10,8 +10,7 @@ class EventType(models.TextChoices):
 class Event(models.Model):
     type = models.CharField(max_length=128, choices=EventType.choices)
     metadata = models.JSONField(default=None, null=True)
-
-    created_at = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f"({self.id}) {self.name}"

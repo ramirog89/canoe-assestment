@@ -32,7 +32,7 @@ def get_create(request):
     request_body=CreateUpdateFundDto,
     responses={status.HTTP_200_OK: FundDto}
 )
-@swagger_auto_schema(method='DELETE', responses={status.HTTP_204_NO_CONTENT: None})
+@swagger_auto_schema(method='DELETE', responses={status.HTTP_200_OK: None})
 @api_view(['PUT', 'DELETE'])
 @permission_classes([])
 def update_delete(request, id):

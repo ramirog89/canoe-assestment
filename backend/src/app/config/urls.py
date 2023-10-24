@@ -22,11 +22,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('admin/', admin.site.urls),
+
     path('fund', controllers.fund.get_create, name='get all funds'),
     path('fund/<int:id>', controllers.fund.update_delete, name='update delete funds'),
-    path('fund/duplicates', controllers.fund.get_create, name='get all funds'),
-    # path('manager', controllers.manager.get_all),
-    # path('company', controllers.company.get_all),
+    path('fund/duplicates', controllers.fund.get_duplicate_funds, name='get all funds'),
 
-    path('admin/', admin.site.urls),
+    path('manager', controllers.manager.get),
 ]

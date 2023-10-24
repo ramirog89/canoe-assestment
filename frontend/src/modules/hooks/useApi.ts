@@ -1,16 +1,16 @@
 import { ENV } from '../../constants';
-import { FundModel, GeneralModel } from "../../models";
+import { FundModel, GeneralModel, ManagerModel } from "../../models";
 
 export const useApi = () => {
 
-  const getFunds = async (): Promise<GeneralModel.PaginatedResponse<FundModel.IFund>> => {
-    return request("/fund", {
+  const getFunds = async ({ page, size }: any): Promise<GeneralModel.PaginatedResponse<FundModel.IFund>> => {
+    return request(`/fund?page=${page}&page_size=${size}`, {
       method: "GET",
     });
   };
 
   const createFund = async (payload: FundModel.IFundRequest): Promise<FundModel.IFund> => {
-    return request('fund', {
+    return request('/fund', {
       method: "POST",
       body: payload
     });
@@ -18,7 +18,7 @@ export const useApi = () => {
 
   const updateFund = async (id: number, payload: FundModel.IFundRequest): Promise<FundModel.IFund> => {
     return request(`/fund/${id}`, {
-      method: "GET",
+      method: "PUT",
       body: payload
     });
   };
@@ -26,6 +26,12 @@ export const useApi = () => {
   const deleteFund = async (id: number): Promise<void> => {
     return request(`/fund/${id}`, {
       method: "DELETE",
+    });
+  };
+
+  const getManagers = async (): Promise<GeneralModel.PaginatedResponse<ManagerModel.IManager>> => {
+    return request("/manager", {
+      method: "GET",
     });
   };
 
@@ -71,5 +77,6 @@ export const useApi = () => {
     createFund,
     updateFund,
     deleteFund,
+    getManagers,
   };
 };

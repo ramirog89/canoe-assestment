@@ -9,19 +9,21 @@ class FundDto(serializers.ModelSerializer):
         fields = [
           'id',
           'name',
-          'start_year',
-          'alias',
           'manager',
-          'companies'
+          'fundalias_set',
+          'start_year',
+          'created_at'
         ]
+        depth = 2
 
 class CreateUpdateFundDto(serializers.ModelSerializer):
+    alias = serializers.ListSerializer(child=serializers.CharField())
+
     class Meta:
         model = Fund
         fields = [
           'name',
-          'start_year',
-          'alias',
           'manager',
-          'companies'
+          'start_year',
+          'alias'
         ]
