@@ -1,38 +1,35 @@
 import factory
 
-from ..app.models import Fund, Company, Manager, Event
+from src.app.models import Fund, Company, FundManager, Event
 
 
 class CompanyFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Company
 
-    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
+    name = factory.Faker('name')
 
 
 class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Event
 
-    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
+    created_at = factory.Faker('date')
 
+class FundManagerFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = FundManager
+
+    name = factory.Faker('name')
+    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
 
 class FundFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Fund
 
-    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
+    name = factory.Faker('name')
+    start_year = factory.Faker('date')
+    created_at = factory.Faker('date')
+    is_duplicated = False
 
-class ManagerFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Manager
-
-    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
+    manager = factory.SubFactory(FundManagerFactory)

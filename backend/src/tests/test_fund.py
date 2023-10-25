@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .factories import Fund, FundFactory, CompanyFactory, ManagerFactory
+from .factories import Fund, FundFactory, FundManagerFactory
 
 
 class TestFunds(APITestCase):
@@ -11,35 +11,40 @@ class TestFunds(APITestCase):
         FundFactory()
         FundFactory()
         FundFactory()
+        FundFactory(is_duplicated=True)
 
         # When
-        response = self.client.get(
-            '/fund',
-            format='json'
-        )
+        response = self.client.get('/fund', format='json')
 
         # Assert
         self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.json(), {})
+        self.assertEquals(response.json()['total'], 4)
+
+        # When filter by duplicates
+        response = self.client.get('/fund?filter=duplicates', format='json')
+
+        # Assert only 1 record
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        self.assertEquals(response.json()['total'], 1)
 
     def test_create_fund(self):
         # Setup
-        CompanyFactory()
-        ManagerFactory()
+        fundManager = FundManagerFactory()
 
         # When
         response = self.client.post(
             '/fund',
             data={
-                'name': 'foo',
-                'email': 'bar@example.com',
-                'password': 'Little123',
+                'name': 'foo+fund',
+                'start_year': '2023-12-18',
+                'alias': ['alias 1', 'alias 2'],
+                'manager': fundManager.pk,
             },
             format='json'
         )
 
+        # Assert
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
-        self.assertEquals(response.json(), {})
 
     def test_update_fund(self):
         # Setup
@@ -49,16 +54,17 @@ class TestFunds(APITestCase):
         response = self.client.put(
             f'/fund/{fund.id}',
             data={
-                'name': 'foo',
-                'email': 'bar@example.com',
-                'password': 'Little123',
+                'name': 'edited-fund',
+                'start_year': '2023-12-18',
+                'alias': ['alias 1', 'alias 2']
             },
             format='json'
         )
 
         # Assert
         self.assertEquals(response.status_code, status.HTTP_200_OK)
-        self.assertEquals(response.json(), {})
+        self.assertEquals(response.json()['name'], 'edited-fund')
+        self.assertEquals(response.json()['start_year'], '2023-12-18')
 
     def test_delete_fund(self):
         # Setup
@@ -76,5 +82,5 @@ class TestFunds(APITestCase):
 
         all_funds = Fund.objects.all()
 
-        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(len(all_funds), 1)

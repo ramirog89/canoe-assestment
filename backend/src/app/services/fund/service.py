@@ -45,9 +45,8 @@ class FundService:
         fund_created.apply_async(args=[fund.pk, fund.name])
 
         response = FundDto(fund).data
-        return Response(response)
+        return Response(response, status=status.HTTP_201_CREATED)
     except Exception as err:
-        print(err)
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
   def update(self, id, payload):
@@ -64,6 +63,7 @@ class FundService:
         response = FundDto(fund).data
         return Response(response)
     except Exception as err:
+        print(err)
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
   def delete(self, id):

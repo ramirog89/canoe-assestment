@@ -13,6 +13,9 @@ LIST_OF_COMPANY_NAMES = ['company 1', 'company 2', 'company 3', 'company 4', 'co
 class RecordGeneratorService:
     ''' Create automated records '''
 
+    # Crear 20 managers
+    # Crear 20 companies al 1ero y dps solo funds y aliases
+
     def generate(self, stop = 10, i = 0):
         if i == stop:
             return
@@ -72,8 +75,8 @@ class RecordGeneratorService:
             raise Exception('Error creating Fund', err)
 
     def random_date(self):
-        start = datetime.datetime.strptime('1/1/2020', '%m/%d/%Y')
-        end = datetime.datetime.strptime('1/1/2025', '%m/%d/%Y')
+        start = datetime.datetime.strptime('1/1/2000', '%m/%d/%Y')
+        end = datetime.datetime.strptime('1/1/2050', '%m/%d/%Y')
         return start + datetime.timedelta(
             seconds=random.randint(0, int((end - start).total_seconds()))
         )
