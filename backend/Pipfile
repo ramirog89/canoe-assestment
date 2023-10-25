@@ -7,12 +7,14 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 psycopg = "*"
+psycopg2-binary = "*"
 python-dotenv = "*"
 drf-yasg = "*"
 django-cors-headers = "*"
 factory-boy = "*"
 celery = "*"
 redis = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

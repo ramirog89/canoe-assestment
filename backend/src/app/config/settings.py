@@ -1,9 +1,15 @@
 import os
 
+import dj_database_url
 from pathlib import Path
+from dotenv import dotenv_values, load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load Environment Variables
+load_dotenv()  # load from environment
+dotenv_values(dotenv_path=os.path.join("/app", ".env"))  # load from .env
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ob2+_ig5j6239!h14$9eglh_t73sv#lr&au*zrcyeszhw55%hh'
@@ -61,23 +67,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.app.config.wsgi.application'
 
-
-DATABASES = {
-     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'assestment',
-        'USER': 'assestment',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5431',
-    }
-}
+DATABASES = {"default": dj_database_url.config(env="DATABASE_URL", conn_max_age=500)}
 
 # Celery
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
+CELERY_RESULT_BACKEND = os.getenv("REDIS_URL")
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 

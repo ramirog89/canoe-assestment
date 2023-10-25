@@ -1,17 +1,21 @@
 FROM python:3.10-slim as base
 
-RUN apt-get update && apt-get -y install gcc make autoconf automake ncat
-
 # SETUP ENV
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV VIRTUAL_ENV=/opt/venv
 
-WORKDIR /app
+FROM base AS python-deps
+# Install wait-for dependencies
+# RUN apt-get update && apt-get -y install gcc make autoconf automake ncat
+RUN apt-get update \
+    && apt-get -y install git gcc libtool make autoconf automake ncat \
+    && ln -s /usr/bin/libtoolize /usr/bin/libtool
 
-COPY Pipfile ./
-COPY src ./
-COPY manage.py ./
+COPY ./Pipfile ./
+COPY ./wait-for.sh ./
+
+RUN chmod a+rwx wait-for.sh
 
 # Install & use pipenv
 RUN python3 -m venv $VIRTUAL_ENV
@@ -24,6 +28,7 @@ RUN adduser --disabled-password --no-create-home appuser
 USER appuser
 
 # GENERATES AND COPY SOURCE CODE TO WORKDIR
+WORKDIR /app
 COPY --chown=appuser:appuser . /app
 
 EXPOSE 8000

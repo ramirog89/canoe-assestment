@@ -18,52 +18,55 @@ services:
       - "6379:6379"
 
   assestment-backend:
+    container_name: assestment-backend
     image: assestment-backend
     build:
       context: ../backend
       dockerfile: Dockerfile
     restart: on-failure
-    command: "python manage.py runserver 0.0.0.0:8000"
-    # command: > ""
-    #   bash -c "./wait-for.sh assestment-database:5431 -t 120 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: >
+       bash -c "./wait-for.sh assestment-database:5431 -t 120 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     environment:
       - PIPENV_VERBOSITY=-1
-      - DATABASE_URL=postgres://user:password@database:5431/assestment
+      - DATABASE_URL=postgres://assestment:password@assestment-database:5431/assestment
       - REDIS_URL=redis://redis:6379/0
     depends_on:
       - assestment-database
     volumes:
-      - ./utils:/app
-      - ../backend/src:/app
+      - ../backend:/app
 
   assestment-celery:
     container_name: assestment-celery
-    restart: always
     build:
       context: ../backend
-    command: > 
-      "./wait-for.sh assestment-backend:8000 -t 120 -- celery -A src.app worker --beat --loglevel=INFO"
+    command: >
+      bash -c "./wait-for.sh assestment-backend:8000 -t 120 -- celery -A src.app worker --beat --loglevel=INFO"
     environment:
-      - DATABASE_URL=postgres://floatuser:floatpassword@float-database:5431/float
-      - REDIS_URL=redis://float-redis:6379/0
+      - DATABASE_URL=postgres://assestment:password@assestment-database:5431/assestment
+      - REDIS_URL=redis://assestment-redis:6379/0
     depends_on:
       - assestment-redis
       - assestment-backend
     volumes:
-      - ./utils:/app
-      - ../backend/src:/app
+      - ../backend:/app
 
   assestment-frontend:
+    container_name: assestment-frontend
     image: assestment-frontend
     build:
       context: ../frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://assestment:password@assestment-database:5431/assestment
+    depends_on:
+      - assestment-backend
+      - assestment-celery
     volumes:
-      - ./utils:/app
+      - ../frontend:/app
     env_file:
       - ../frontend/.env
 

@@ -19,13 +19,11 @@ class RecordGeneratorService:
     def generate(self, stop = 10, i = 0):
         if i == stop:
             return
-        if 3 / i == 0:
-            # Only create 3 managers per generation
-            manager = self.create_fund_manager()
 
-        duplicatedFund = self.create_duplicated_fund(manager=manager)
-        uniqueFund = self.create_unique_fund(manager=manager)
-        company = self.create_company()
+        manager = self.create_fund_manager()
+        self.create_duplicated_fund(manager=manager)
+        self.create_unique_fund(manager=manager)
+        self.create_company()
         self.generate(i=i+1)
 
     def create_company(self):
