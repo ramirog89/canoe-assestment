@@ -1,9 +1,12 @@
 from rest_framework import status
 from rest_framework.response import Response
 
+from .process import fund_created
+
 from ...repositories.fund import fund_repository
 from ...repositories.fund_alias import fund_alias_repository
 from ...repositories.manager import manager_repository
+
 from ...dtos.fund import CreateUpdateFundDto, FundDto
 from ...utils.pagination import paginate
 
@@ -12,7 +15,12 @@ class FundService:
 
   def get_all(self, request):
     try:
-        funds = fund_repository.all().order_by('-id')
+        filter = request.query_params.get("filter", "all")
+        if filter == "duplicates":
+          funds = fund_repository.filter(is_duplicated=True).order_by('-id')
+        else:
+          funds = fund_repository.all().order_by('-id')
+
         response = paginate(funds, request, FundDto)
         return Response(response)
     except Exception as err:
@@ -33,9 +41,13 @@ class FundService:
         for alias in serializer.data['alias']:
            fund_alias_repository.create(alias=alias, fund=fund)
 
+        # Task event call
+        fund_created.apply_async(args=[fund.pk, fund.name])
+
         response = FundDto(fund).data
         return Response(response)
     except Exception as err:
+        print(err)
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
   def update(self, id, payload):
@@ -60,9 +72,6 @@ class FundService:
         return Response(data=str("success"), status=status.HTTP_200_OK)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
-
-  def get_duplicate_funds(self):
-      pass
 
 
 fund_service = FundService()

@@ -9,6 +9,5 @@ class FundAliasDto(serializers.ModelSerializer):
         model = FundAlias
         fields = [
           'id',
-          'alias',
-          'fund'
+          'alias'
         ]

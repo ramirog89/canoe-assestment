@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import Dialog from '../../common/Dialog';
+import Dialog from '../../../common/Dialog';
 import FundForm from './FundForm';
 
-import { FundModel } from '../../../../models';
-import { useFunds } from '../../../hooks/useFunds';
+import { FundModel } from '../../../../../models';
+import { useFunds } from '../../../../hooks/useFunds';
 
 interface IFundCardProps {
   id: number;
@@ -51,7 +51,7 @@ const FundCard = ({ id, items, type, isOpen, onClose, onSubmit }: IFundCardProps
         name: selectedFund?.name,
         start_year: selectedFund?.start_year,
         alias: selectedFund?.fundalias_set.map((a: any) => a.alias),
-        manager: selectedFund.manager.id,
+        manager: selectedFund?.manager?.id,
       });
     }
   }, [items, id]); // eslint-disable-line

@@ -13,4 +13,4 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f"({self.id}) {self.name}"
+        return f"({self.id}) {self.type}"

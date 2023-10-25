@@ -11,8 +11,8 @@ class ManagerService:
   def get_all(self, request):
     try:
         funds = manager_repository.all()
-        response = paginate(funds, request, ManagerDto)
-        return Response(response)
+        response = ManagerDto(funds, many=True)
+        return Response(response.data)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 

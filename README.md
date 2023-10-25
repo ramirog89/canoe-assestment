@@ -1,4 +1,11 @@
-## TODO
+## Tech Home Assestment
+
+
+Setup
+
+Commands
+
+How to Run
 
 FE
 

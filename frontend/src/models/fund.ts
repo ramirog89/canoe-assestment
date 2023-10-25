@@ -6,6 +6,7 @@ export interface IFund {
   name: string;
   start_year: string;
   fundalias_set: IAlias[];
+  is_duplicated: boolean;
   manager: IManager;
   created_at: Date;
 }

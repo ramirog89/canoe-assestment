@@ -9,8 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 
-import { FundModel } from '../../../../models';
-import { useFundManagers } from '../../../hooks/useFundManagers';
+import { FundModel } from '../../../../../models';
+import { useFundManagers } from '../../../../hooks/useFundManagers';
 
 interface IFundCardProps {
   fund: FundModel.IFundRequest;
@@ -46,16 +46,14 @@ const FundCard = ({
           onChange={onChange}
         />
         <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Managers</InputLabel>
+          <InputLabel>Managers</InputLabel>
           <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
             label="Manager"
             name="manager"
             value={fund.manager}
             onChange={onChange}
           >
-            {fundManagerManager.data?.items?.map((manager) => (
+            {fundManagerManager.data?.map((manager) => (
               <MenuItem key={manager.id} value={manager.id}>
                 {manager.name}
               </MenuItem>

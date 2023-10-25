@@ -3,8 +3,8 @@ import { FundModel, GeneralModel, ManagerModel } from "../../models";
 
 export const useApi = () => {
 
-  const getFunds = async ({ page, size }: any): Promise<GeneralModel.PaginatedResponse<FundModel.IFund>> => {
-    return request(`/fund?page=${page}&page_size=${size}`, {
+  const getFunds = async ({ page, size, filter }: any): Promise<GeneralModel.PaginatedResponse<FundModel.IFund>> => {
+    return request(`/fund?page=${page}&page_size=${size}&filter=${filter}`, {
       method: "GET",
     });
   };
@@ -29,7 +29,7 @@ export const useApi = () => {
     });
   };
 
-  const getManagers = async (): Promise<GeneralModel.PaginatedResponse<ManagerModel.IManager>> => {
+  const getManagers = async (): Promise<ManagerModel.IManager[]> => {
     return request("/manager", {
       method: "GET",
     });

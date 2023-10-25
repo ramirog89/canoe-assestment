@@ -1,9 +1,7 @@
 import os
 
-from django.conf import settings
-
 from celery import Celery
-from celery.schedules import crontab
+from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.app.config.settings')
 
@@ -15,6 +13,6 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 app.conf.beat_schedule = {
     'record-generator': {
         'task': 'src.app.services.record.service.automatic_record_generator',
-        'schedule': 10.0 # crontab(minutes='0/30')  # Every minute
+        'schedule': 25.0 # Every 25 seconds
     },
 }

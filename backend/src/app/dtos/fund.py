@@ -2,8 +2,14 @@ from rest_framework import serializers
 
 from ..models.fund import Fund
 
+from .manager import ManagerDto
+from .fund_alias import FundAliasDto
+
 
 class FundDto(serializers.ModelSerializer):
+    manager = ManagerDto()
+    fundalias_set = serializers.ListSerializer(child=FundAliasDto())
+
     class Meta:
         model = Fund
         fields = [
@@ -12,9 +18,9 @@ class FundDto(serializers.ModelSerializer):
           'manager',
           'fundalias_set',
           'start_year',
+          'is_duplicated',
           'created_at'
         ]
-        depth = 2
 
 class CreateUpdateFundDto(serializers.ModelSerializer):
     alias = serializers.ListSerializer(child=serializers.CharField())
