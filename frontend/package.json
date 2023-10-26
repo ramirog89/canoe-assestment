@@ -53,5 +53,31 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!src/modules/AppRoot.tsx",
+      "!src/constants/**/*.*",
+      "!src/modules/models/**/*.*",
+      "!src/test/**/*.*",
+      "!src/**/index.{ts,tsx}",
+      "!src/react-app-env.d.ts",
+      "!src/reportWebVitals.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 40,
+        "branches": 40,
+        "functions": 40,
+        "lines": 40
+      }
+    },
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "text-summary"
+    ]
   }
 }
