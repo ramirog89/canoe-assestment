@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -27,7 +28,8 @@ class TestFunds(APITestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.json()['total'], 1)
 
-    def test_create_fund(self):
+    @patch('src.app.services.fund.process.fund_created.apply_async')
+    def test_create_fund(self, fund_create_mock):
         # Setup
         fundManager = FundManagerFactory()
 
@@ -45,6 +47,7 @@ class TestFunds(APITestCase):
 
         # Assert
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+        fund_create_mock.assert_called_once()
 
     def test_update_fund(self):
         # Setup

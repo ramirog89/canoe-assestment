@@ -2,7 +2,7 @@
 
 - Backend Framework: Django
 - ORM: Django ORM
-- Test: Pytest
+- Test: UnitTest
 - Message Broker: Redis
 - Queue Manager: Celery
 
@@ -45,4 +45,12 @@ Assumption you are already running `python3` and `pipenv` locally
 ```
 http://localhost:8000/  # swagger ui
 http://localhost:8000/admin  # django admin panel
+```
+
+### Testing application
+
+```
+1. cd backend/
+2. pipenv shell
+3. ./manage test src.tests
 ```

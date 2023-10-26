@@ -8,8 +8,8 @@ from dotenv import dotenv_values, load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load Environment Variables
-load_dotenv()  # load from environment
-dotenv_values(dotenv_path=os.path.join("/app", ".env"))  # load from .env
+load_dotenv()
+dotenv_values(dotenv_path=os.path.join(BASE_DIR.parent.parent, ".env"))  # load from .env
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ob2+_ig5j6239!h14$9eglh_t73sv#lr&au*zrcyeszhw55%hh'
