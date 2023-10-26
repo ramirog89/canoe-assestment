@@ -5,13 +5,13 @@ from rest_framework.decorators import api_view, permission_classes
 
 from ..services.fund.service import fund_service
 
-from ..dtos.fund import CreateUpdateFundDto, FundDto
+from ..dtos.fund import CreateUpdateFundDto, FundListDto, FundDto
 from ..dtos.pagination import PaginationListDto
 
 
 @swagger_auto_schema(
     method='GET',
-    responses={status.HTTP_200_OK: PaginationListDto(FundDto)}
+    responses={status.HTTP_200_OK: PaginationListDto(FundListDto)}
 )
 @swagger_auto_schema(
     method='POST',

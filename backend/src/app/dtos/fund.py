@@ -6,7 +6,7 @@ from .manager import ManagerDto
 from .fund_alias import FundAliasDto
 
 
-class FundDto(serializers.ModelSerializer):
+class FundListDto(serializers.ModelSerializer):
     manager = ManagerDto()
     fundalias_set = serializers.ListSerializer(child=FundAliasDto())
 
@@ -17,6 +17,20 @@ class FundDto(serializers.ModelSerializer):
           'name',
           'manager',
           'fundalias_set',
+          'start_year',
+          'is_duplicated',
+          'created_at'
+        ]
+
+
+class FundDto(serializers.ModelSerializer):
+
+    class Meta:
+        model = Fund
+        fields = [
+          'id',
+          'name',
+          'manager',
           'start_year',
           'is_duplicated',
           'created_at'

@@ -7,7 +7,7 @@ from ...repositories.fund import fund_repository
 from ...repositories.fund_alias import fund_alias_repository
 from ...repositories.manager import manager_repository
 
-from ...dtos.fund import CreateUpdateFundDto, FundDto
+from ...dtos.fund import CreateUpdateFundDto, FundDto, FundListDto
 from ...utils.pagination import paginate
 
 
@@ -21,7 +21,7 @@ class FundService:
         else:
           funds = fund_repository.all().order_by('-id')
 
-        response = paginate(funds, request, FundDto)
+        response = paginate(funds, request, FundListDto)
         return Response(response)
     except Exception as err:
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
@@ -63,7 +63,6 @@ class FundService:
         response = FundDto(fund).data
         return Response(response)
     except Exception as err:
-        print(err)
         return Response(data=dict(error=str(err)), status=status.HTTP_400_BAD_REQUEST)
 
   def delete(self, id):

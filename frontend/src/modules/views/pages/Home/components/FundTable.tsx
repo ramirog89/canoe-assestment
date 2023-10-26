@@ -38,7 +38,6 @@ const FundTable = ({
   onOpenEditModal,
   onOpenDeleteModal
 }: IFundTableProps) => {
-  console.log(isLoading);
   return (
     <React.Fragment>
       <div style={{ position: 'relative' }}>
