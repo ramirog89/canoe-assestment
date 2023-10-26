@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 
-from .process import fund_created
+from .tasks import fund_created
 
 from ...repositories.fund import fund_repository
 from ...repositories.fund_alias import fund_alias_repository

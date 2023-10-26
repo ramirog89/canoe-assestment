@@ -1,12 +1,10 @@
+from django.db.models import Q
+from functools import reduce
+from operator import or_
+
 from src.app.config.celery import app
-'''
-a. Si se crea un nuevo fondo con un nombre y administrador que coincide con el nombre o alias de un fondo existente con el mismo administrador,
-lanzar un evento de advertencia de fondo_duplicado.
 
-b. Escriba un proceso para consumir el evento duplicado_fund_warning
-'''
-
-from ...models import Event, EventType
+from ...models import Event, EventType, FundAlias
 from ...repositories.fund import fund_repository
 from ...repositories.fund_alias import fund_alias_repository
 
@@ -15,9 +13,19 @@ class FundProcessor:
 
     def fund_created(self, fund_id: int, fund_name: str):
         fund = fund_repository.get(id=fund_id)
+
         fundNameExists = fund_repository.filter(name=fund_name)
-        aliasAndManagerMatches = fund_alias_repository.filter(fund=fund)
-        isDuplicate = len(fundNameExists) > 0 or len(aliasAndManagerMatches) > 0
+        managerAliasMatches = []
+
+        fundAliases = fund.fundalias_set.all()
+        if len(fundAliases) > 0:
+            managerAliasMatches = FundAlias.objects.filter(
+                reduce(or_, [Q(alias__icontains=a.alias) for a in fundAliases])
+            ) & FundAlias.objects.filter(
+                fund__manager=fund.manager
+            )
+
+        isDuplicate = len(fundNameExists) > 1 or len(managerAliasMatches) > 0
 
         if isDuplicate:
             try:

@@ -28,7 +28,7 @@ class TestFunds(APITestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.json()['total'], 1)
 
-    @patch('src.app.services.fund.process.fund_created.apply_async')
+    @patch('src.app.services.fund.tasks.fund_created.apply_async')
     def test_create_fund(self, fund_create_mock):
         # Setup
         fundManager = FundManagerFactory()
