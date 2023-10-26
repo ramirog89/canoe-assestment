@@ -114,12 +114,12 @@ const Home = () => {
                 </Button>
               </div>
             </div>
-            {!fundManager.funds.isLoading && fundManager.funds?.data?.total === 0 && (
+            {!fundManager.funds.isLoading && fundManager.funds?.data?.total === 0 ? (
               <div>
                 Empty Records
               </div>
-            )}
-            {fundManager.funds?.data?.total && fundManager.funds?.data?.total >= 0 && (
+            ) : <></>}
+            {fundManager.funds?.data?.total && fundManager.funds?.data?.total >= 0 ? (
               <FundTable
                 isLoading={fundManager.funds.isLoading}
                 page={fundManager.page}
@@ -131,7 +131,7 @@ const Home = () => {
                 onOpenEditModal={onOpenEditModal}
                 onOpenDeleteModal={onOpenDeleteModal}
               />
-            )}
+              ) : <></>}
           </Paper>
         </Grid>
       </Grid>
