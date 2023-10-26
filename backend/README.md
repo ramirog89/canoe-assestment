@@ -19,7 +19,8 @@ Assumption you are already running `python3` and `pipenv` locally
 1. cd backend/
 2. pipenv shell
 3. pipenv install
-4. ./manage runserver
+4. ./manage migrate app
+5. ./manage runserver
 ```
 
 #### 2. Setup Celery standalone
