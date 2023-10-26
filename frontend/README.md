@@ -1,10 +1,10 @@
 ## Frontend Application Stack
 
-- Render Library: React
-- Side Effects Manager: React Hooks
-- State Management Library: ReactContext
-- Router library: React Router
-- Component Library: Material UI
+- **Render Library**: `React`
+- **Side Effects Manager**: `React Hooks`
+- **State Management Library**: `ReactContext`
+- **Router library**: `React Router`
+- **Component Library**: `Material UI`
 
 ## Commands
 * **installation:** `npm run install`
