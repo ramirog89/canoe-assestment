@@ -13,7 +13,7 @@ Take into account that you will need REDIS and POSTGRES installed locally also a
 
 #### 0. Setup Configs under .env file
 
-Open /backend/.env file and update next lines with proper configs:
+Open `.env` file and update next lines with proper configs:
 
 ```
 DATABASE_URL=
