@@ -13,10 +13,8 @@ LIST_OF_COMPANY_NAMES = ['company 1', 'company 2', 'company 3', 'company 4', 'co
 class RecordGeneratorService:
     ''' Create automated records '''
 
-    # Crear 20 managers
-    # Crear 20 companies al 1ero y dps solo funds y aliases
-
     def generate(self, stop = 10, i = 0):
+        ''' This creates 10 records every time job is triggered '''
         if i == stop:
             return
 
