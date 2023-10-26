@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home should render 1`] = `
+<div>
+  <div
+    class="MuiBox-root css-k008qs"
+  >
+    <header
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-fjo2tc-MuiPaper-root-MuiAppBar-root"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-hyum1k-MuiToolbar-root"
+      >
+        <h1
+          class="MuiTypography-root MuiTypography-h6 css-1qp5wg9-MuiTypography-root"
+        >
+          Dashboard
+        </h1>
+      </div>
+    </header>
+    <main
+      class="MuiBox-root css-1w1gdci"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-hyum1k-MuiToolbar-root"
+      />
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1f2kw6w-MuiContainer-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation6 MuiAlert-root MuiAlert-filledInfo MuiAlert-filled css-1othqhp-MuiPaper-root-MuiAlert-root"
+              role="alert"
+            >
+              <div
+                class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                  data-testid="InfoOutlinedIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                  />
+                </svg>
+              </div>
+              <div
+                class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
+              >
+                List is being refreshed every 30 secs to show new generated Records
+              </div>
+            </div>
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-3yxrt8-MuiPaper-root"
+            >
+              <div
+                style="display: flex; flex-direction: row; justify-content: space-between; padding: 10px 0px;"
+              >
+                <div
+                  style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;"
+                >
+                  <h2
+                    class="MuiTypography-root MuiTypography-h6 css-1bbxbns-MuiTypography-root"
+                  >
+                    Funds
+                  </h2>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-sizeSmall  css-r6dbjx-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                    style="margin-left: 20px;"
+                  >
+                    <div
+                      aria-controls=":r0:"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-labelledby="mui-component-select-manager"
+                      class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall css-jedpe8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                      id="mui-component-select-manager"
+                      role="combobox"
+                      tabindex="0"
+                    >
+                      all
+                    </div>
+                    <input
+                      aria-hidden="true"
+                      aria-invalid="false"
+                      class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                      name="manager"
+                      tabindex="-1"
+                      value="all"
+                    />
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                      data-testid="ArrowDropDownIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M7 10l5 5 5-5z"
+                      />
+                    </svg>
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-yjsfm1"
+                      >
+                        <span>
+                          Manager
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-nqi81f-MuiButtonBase-root-MuiButton-root"
+                    tabindex="0"
+                    type="button"
+                  >
+                    Create
+                    <span
+                      class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
