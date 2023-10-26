@@ -6,8 +6,6 @@ from src.app.config.celery import app
 
 from ...models import Event, EventType, FundAlias
 from ...repositories.fund import fund_repository
-from ...repositories.fund_alias import fund_alias_repository
-
 
 class FundProcessor:
 
@@ -23,7 +21,7 @@ class FundProcessor:
                 reduce(or_, [Q(alias__icontains=a.alias) for a in fundAliases])
             ) & FundAlias.objects.filter(
                 fund__manager=fund.manager
-            )
+            ).exclude(fund__id=fund.pk)
 
         isDuplicate = len(fundNameExists) > 1 or len(managerAliasMatches) > 0
 
