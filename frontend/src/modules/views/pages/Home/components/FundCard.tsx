@@ -37,6 +37,11 @@ const FundCard = ({ id, items, type, isOpen, onClose, onSubmit }: IFundCardProps
 
   const isLoading = fundManager.create.isPending || fundManager.update.isPending;
 
+  const onCloseHandler = () => {
+    setState(FundModel.getFundRequestFallback());
+    onClose();
+  }
+
   React.useEffect(() => {
     if (fundManager.create.isSuccess || fundManager.update.isSuccess) {
       setState(FundModel.getFundRequestFallback());
@@ -63,7 +68,7 @@ const FundCard = ({ id, items, type, isOpen, onClose, onSubmit }: IFundCardProps
       title={FundModel.modalMap[type]?.title}
       closeLabel={FundModel.modalMap[type]?.closeLabel}
       submitLabel={FundModel.modalMap[type]?.submitLabel}
-      onClose={onClose}
+      onClose={onCloseHandler}
       onConfirm={onConfirm}
       render={() => (
         <FundForm
