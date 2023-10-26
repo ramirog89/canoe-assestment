@@ -11,6 +11,15 @@
 In case you want to run application locally you need to follow next rules.
 Take into account that you will need REDIS and POSTGRES installed locally also as dependencies.
 
+#### 0. Setup Configs under .env file
+
+Open /backend/.env file and update next lines with proper configs:
+
+```
+DATABASE_URL=
+REDIS_URL=
+```
+
 #### 1. Setup Django app standalone
 
 Assumption you are already running `python3` and `pipenv` locally
