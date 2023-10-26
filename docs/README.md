@@ -2,7 +2,9 @@
 
 ### How will your application work as the data set grows increasingly larger?
 
-Given the application handles pagination will work effectively and consistent. Also payloads are small and reduced to each purpose.
+Given `GET /fund` endpoint is paginated will work effectively and consistent.
+Thing is when there are 100 > Managers, FE should paginate Managers dropdown.
+Payloads are small so that's not an issue.
 
 ### How will your application work as the # of concurrent users grows increasingly larger?
 
