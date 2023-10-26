@@ -18,7 +18,11 @@ class RecordGeneratorService:
         if i == stop:
             return
 
-        manager = self.create_fund_manager()
+        if i == 0:  # create only 1 manager per generator iteration
+            manager = self.create_fund_manager()
+        else:
+            manager = FundManager.objects.all().first()
+
         self.create_duplicated_fund(manager=manager)
         self.create_unique_fund(manager=manager)
         self.create_company()
